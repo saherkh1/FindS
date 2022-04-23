@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const ProductCategorySchema = mongoose.Schema({
-    category: String,
+    name: String,
 }, { versionKey: false });
 const ProductCategoryModel = mongoose.model("ProductCategoryModel", ProductCategorySchema, "ProductCategory");
 module.exports = ProductCategoryModel;

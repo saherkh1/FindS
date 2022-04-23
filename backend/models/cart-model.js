@@ -9,17 +9,21 @@ const CartSchema = mongoose.Schema({
         type: Date,
         required: [true, "cart date required"],
         default: Date.now
+    },
+    cartProduct_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        require: [true, "Cart product required"]
     }
 },
     {
         versionKey: false,
         toJSON: { virtuals: true }, id: false
     });
-CartSchema.virtual("user", {
-    ref: "UserModel",
-    localField: "userId",
+CartSchema.virtual("cartProducts", {
+    ref: "CartProductModel",
+    localField: "cartProduct_id",
     foreignField: "_id",
-    justOne: true
+    justOne: false
 });
 
 const CartModel = mongoose.model("CartModel", CartSchema, "Carts");

@@ -31,7 +31,6 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: [true, "Missing street."]
     },
-    role: String,
     verified: Boolean,
     token: String
 },
@@ -48,6 +47,18 @@ UserSchema.virtual("city", {
     foreignField: "_id",
     justOne: true
 });
-const UserModel = mongoose.model("UserModel", UserSchema, "Users");
+UserSchema.virtual("role", {
+    ref: "RoleModel",
+    localField: "role_id",
+    foreignField: "_id",
+    justOne: true
+});
+UserSchema.virtual("carType", {
+    ref: "CarTypeModel",
+    localField: "carType_id",
+    foreignField: "_id",
+    justOne: false
+});
+const UserModel = mongoose.model("UserModel", UserSchema, "users");
 
 module.exports = UserModel;

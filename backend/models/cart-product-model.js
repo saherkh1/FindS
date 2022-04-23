@@ -1,24 +1,24 @@
 const mongoose = require("mongoose");
 
 const CartProductSchema = mongoose.Schema({
-    productId: {
+    product_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "productId required"],
-        
+
     },
-    cartId: {
+    cart_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "cartId required"],
-        
+
     },
     quantity: {
         type: Number,
         required: [true, "Quantity required"],
         default: 1
     },
-    itemsPrice: {
+    totalPrice: {
         type: Number,
-        required: [true, "Item price required"],
+        required: [true, "total price required"],
     },
 },
     {
@@ -27,10 +27,11 @@ const CartProductSchema = mongoose.Schema({
     });
 CartProductSchema.virtual("product", {
     ref: "ProductModel",
-    localField: "productId",
+    localField: "product_id",
     foreignField: "_id",
     justOne: true
 });
+//we are not adding a new field of the cart
 
 const CartProductModel = mongoose.model("CartProductModel", CartProductSchema, "CartProducts");
 

@@ -2,7 +2,7 @@
     "isProduction": false,
     "isDevelopment": true,
     "mongodb": {
-        "connectionString": "mongodb://localhost:27017/Supermarket"
+        "connectionString": "mongodb://localhost:27017/FindS"
     },
     "jwtKey": "ThisIS@awesome"
 }

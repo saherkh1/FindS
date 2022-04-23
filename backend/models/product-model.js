@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
 
 const ProductSchema = mongoose.Schema({
-    productCategoryId: {
+    productCategory_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "Product Category required"],
-        
     },
-    name: {
-        type: String,
-        required: [true, "Product name required"],
-        
+    barCode_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true, "Barcode required"],
+    },
+    stockQuantity: {
+        type: Number,
+        required: [true, "Product price required"],
     },
     price: {
         type: Number,
         required: [true, "Product price required"],
-        
-    },
-    image: String
+    }
 },
     {
         versionKey: false,
@@ -25,11 +25,11 @@ const ProductSchema = mongoose.Schema({
     });
 ProductSchema.virtual("category", { //add another field with this name
     ref: "ProductCategoryModel", // Foreign collection model
-    localField: "productCategoryId", // Connection local field
+    localField: "productCategory_id", // Connection local field
     foreignField: "_id", // Connection remote field
     justOne: true // Create "author" field as a single object rather than array.
 });
 
-const ProductModel = mongoose.model("ProductModel", ProductSchema, "Products");
+const ProductModel = mongoose.model("ProductModel", ProductSchema, "products");
 
 module.exports = ProductModel;
