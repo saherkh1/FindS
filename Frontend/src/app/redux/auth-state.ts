@@ -36,7 +36,7 @@ export function userLoggedOutAction(): AuthAction {
     return { type: AuthActionType.UserLoggedOut };
 }
 // Auth Reducer: 
-export function authReducer(currentState: AuthState = new AuthState(), action: AuthAction): AuthState {
+export function AuthReducer(currentState: AuthState = new AuthState(), action: AuthAction): AuthState {
     const newState = { ...currentState };
     switch(action.type) {
         case AuthActionType.UserRegistered: 

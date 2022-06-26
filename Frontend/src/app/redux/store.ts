@@ -1,17 +1,26 @@
 import { combineReducers, createStore } from "redux";
-import { authReducer } from "./auth-state";
-import { cartReducer } from "./cart-state";
-import { categoryReducer } from "./category-state";
-import { productsReducer } from "./products-state";
+import { AuthReducer } from "./auth-state";
+import { BarcodeReducer } from "./barcode-state";
+import { CarModelReducer } from "./car-model-state";
+import { CarTypeReducer } from "./car-type-state";
+import { CartReducer } from "./cart-state";
+import { CategoryReducer } from "./category-state";
+import { CityReducer } from "./city-state";
+import { ProductsReducer } from "./products-state";
 import { SearchReducer } from "./search-state";
 
 // Create an object containing all the reducers: 
 const reducers = combineReducers({
-    productsState: productsReducer,
-    categoryState: categoryReducer,
-    cartState: cartReducer,
-    authState: authReducer,
-    searchState: SearchReducer
+    productsState: ProductsReducer,
+    categoryState: CategoryReducer,
+    cartState: CartReducer,
+    authState: AuthReducer,
+    searchState: SearchReducer,
+    carTypeState: CarTypeReducer,
+    carModelState: CarModelReducer,
+    barcodeState: BarcodeReducer,
+    cityState: CityReducer,
+
 });
 
 // Crete the store object:

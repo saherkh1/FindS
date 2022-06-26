@@ -19,4 +19,12 @@ export class categoryService {
         }
         return store.getState().categoryState.categories;
     }
+
+    public async addProductCategoryAsync(category: ProductCategoryModel): Promise<ProductCategoryModel> {
+        const formData = new FormData();
+        formData.append("name", category.name);
+        const addedProductCategory = await this.http.post<ProductCategoryModel>(environment.productCategoryUrl, formData).toPromise();
+        store.dispatch({ type: CategoryActionType.CategoryAdded, payload: addedProductCategory });
+        return addedProductCategory;
+    }
 }

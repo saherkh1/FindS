@@ -1,12 +1,23 @@
-<div class=" container  ">
-    <h3 class="card-header">{{product.name}}</h3>
-    <div class="card-body">
-        <h5 class="card-title">Price: {{product.price | currency:'ILS'}}</h5>
-        <h6 class="card-subtitle text-muted">Category: {{product.category?.category}}</h6>
-    </div>
-    <a routerLink="/products/details/{{product._id}}"><img [src]="imageAddress"></a>
-    <br>
-    <button [hidden]="isAuthorized" class="btn btn-outline btn-sm" (click)="addToCart()">add to cart</button>
-    <button [hidden]="!isAuthorized" class="btn btn-outline btn-sm" (click)="deleteProduct()">DELETE</button>
+<div class=" container ">
+    <div class="col">
+        <div class="row-5 align-items-start card-body">
+            <h3 class="card-header">{{product.name}}</h3>
+        </div>
 
+        <div class="card-body row-sm-2">
+            <h5 class="card-title">Price: {{product.price | currency:'ILS'}}</h5>
+            <h6 class="card-subtitle text-muted">Car Type: {{product.carType?.name}}</h6>
+            <h6 class="card-subtitle text-muted">Car Model: {{product.carType?.carModel?.name}}</h6>
+            <h6 class="card-subtitle text-muted">Category: {{product.category?.name}}</h6>
+            <h6 class="card-subtitle text-muted">Quantity: {{product.stockQuantity}}</h6>
+        </div>
+        <div class="row-sm-4">
+            <a routerLink="/products/details/{{product._id}}"><img [src]="imageAddress"></a>
+            <br>
+        </div>
+        <div class="row-sm-1 align-items-end">
+            <button [hidden]="isAuthorized" class="btn btn-outline btn-sm" (click)="addToCart()">add to cart</button>
+            <button [hidden]="!isAuthorized" class="btn btn-outline btn-sm" (click)="deleteProduct()">DELETE</button>
+        </div>
+    </div>
 </div>

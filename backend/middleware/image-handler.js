@@ -5,13 +5,15 @@ const deleteOldImage = require("../helpers/image-helper");
 
 async function handleImage(request, response, next) {
     try {
+        console.log(request.body)
         const currentMethod = request.method;
         const isPost = (currentMethod === "POST");
+
         if (!request.files) { //no files attached
-            isPost ? errorsHelper.badRequestError(response, "No image sent") : next();
+            isPost ? errorsHelper.badRequestError(response, "No image sent, Request not processed!") : next();
             return;
         }
-        if (!request.files.image) { //no image attached
+        if (!request.files.image) { //no image name
             isPost ? errorsHelper.badRequestError(response, "The image must be called image") : next();
             return;
         }

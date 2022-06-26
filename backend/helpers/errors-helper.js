@@ -25,11 +25,22 @@ function notFoundError(response, err) {
         response.status(404).send(err);
         return;
     }
-    return response.status(404).send("Error, page not found or file not found");
+    return response.status(404).send("Error, page not found or file not found.");
+}
+
+function alreadyExistError(response, err) {
+
+    if (global.config.isDevelopment !== null) {
+        console.log(err);
+        response.status(409).send(err);
+        return;
+    }
+    return response.status(409).send("Error, already exist.");
 }
 module.exports = {
     internalServerError,
     badRequestError,
-    notFoundError
+    notFoundError,
+    alreadyExistError
 
 };

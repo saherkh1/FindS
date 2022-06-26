@@ -39,7 +39,7 @@ export class UpdateProductComponent implements OnInit {
             const product = await this.productsService.getOneProductAsync(this.product._id);
             this.nameControl.setValue(product.name);
             this.priceControl.setValue(product.price);
-            this.categoryControl.setValue(product.productCategoryId);
+            this.categoryControl.setValue(product.productCategory_id);
         }
         catch (err: any) {
             this.notify.error(err);
@@ -57,7 +57,7 @@ export class UpdateProductComponent implements OnInit {
         try {
             this.product.name = this.nameControl.value;
             this.product.price = this.priceControl.value;
-            this.product.productCategoryId = this.categoryControl.value;
+            this.product.productCategory_id = this.categoryControl.value;
 
             await this.productsService.updateProductAsync(this.product);
             IncompleteGuard.canLeave = true;

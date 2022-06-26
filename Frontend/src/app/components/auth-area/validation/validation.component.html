@@ -10,7 +10,7 @@
         <label>city: </label>
         <select name="cityId" [(ngModel)]="user.cityId">
             <option selected disabled value="">Select city</option>
-            <option *ngFor="let c of cites" value="{{c._id}}">{{c.city}}</option>
+            <option *ngFor="let c of cites" value="{{c._id}}">{{c.name}}</option>
         </select>
         <button>Update</button>
     </form>

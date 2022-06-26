@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { CartProductModel } from '../models/cart-product.model';
 import { environment } from 'src/environments/environment';
 import { ProductModel } from '../models/product.model';
@@ -32,34 +33,36 @@ export class CartService {
         }
         return store.getState().cartState.cartProducts;
     }
-    
+
     public async addCartProductAsync(product: ProductModel,): Promise<CartProductModel[]> {
         const cartProducts = store.getState().cartState.cartProducts;
-        let cartProduct = cartProducts.find(p => p.productId === product._id);
+        let cartProduct = cartProducts.find(p => p.product_id === product._id);
         //true: create new product
+
         const isNewProduct = (!cartProduct);
         if (isNewProduct) {//create new cartProduct 
             cartProduct = new CartProductModel();
             cartProduct.quantity = 1;
-            cartProduct.cartId = store.getState().cartState.cart._id;
-            cartProduct.productId = product._id;
-            cartProduct.itemsPrice = product.price;
+            cartProduct.cart_id = store.getState().cartState.cart._id;
+            cartProduct.product_id = product._id;
+            cartProduct.totalPrice = product.price;
         } else {
             cartProduct.quantity += 1;
-            cartProduct.itemsPrice = cartProduct.quantity * product.price;
+            cartProduct.totalPrice = cartProduct.quantity * product.price;
         }
-
+        console.log(cartProduct);
 
         const newCartProduct = await this.http.put<CartModel[]>(environment.cartUrl, cartProduct).toPromise();
+        console.log(newCartProduct);
         (isNewProduct)
             ? store.dispatch({ type: CartActionType.CartProductAdded, payload: newCartProduct })
             : store.dispatch({ type: CartActionType.CartProductUpdated, payload: newCartProduct });
 
         return store.getState().cartState.cartProducts;
     }
-    
+
     public async updateCartProductAsync(cartProduct: CartProductModel): Promise<CartProductModel[]> {
-        cartProduct.itemsPrice = cartProduct.quantity * cartProduct.product.price;
+        cartProduct.totalPrice = cartProduct.quantity * cartProduct.product.price;
         const newCartProduct = await this.http.put<CartModel[]>(environment.cartUrl, cartProduct).toPromise();
         store.dispatch({ type: CartActionType.CartProductUpdated, payload: newCartProduct });
         return store.getState().cartState.cartProducts;

@@ -18,7 +18,7 @@
             <label class="form-label mt-4">Category: </label>
             <select class="form-select" (change)="changeOccurred()" [formControl]="categoryControl">
                 <option selected disabled value="">Select Category</option>
-                <option *ngFor="let c of categories" value="{{c._id}}">{{c.category}}</option>
+                <option *ngFor="let c of categories" value="{{c._id}}">{{c.name}}</option>
             </select>
             <span *ngIf="categoryControl.errors?.required && categoryControl.touched">Missing category</span>
 

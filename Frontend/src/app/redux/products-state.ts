@@ -21,7 +21,7 @@ export interface ProductsAction {
 }
 
 // Products Reducer (the new ProductsState() is for the first time only - we create a new AppState):
-export function productsReducer(currentState: ProductsState = new ProductsState(), action: ProductsAction): ProductsState {
+export function ProductsReducer(currentState: ProductsState = new ProductsState(), action: ProductsAction): ProductsState {
 
     // Create a copy of the currentState:
     const newState = { ...currentState }; // ... is JS Spread Operator

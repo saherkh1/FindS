@@ -3,19 +3,27 @@ const mongoose = require("mongoose");
 const ProductSchema = mongoose.Schema({
     productCategory_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Product Category required"],
+        required: [true, "Product Category is required"],
     },
-    barCode_id: {
+    carType_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Barcode required"],
+        required: [true, "Car Type is required"],
     },
     stockQuantity: {
         type: Number,
-        required: [true, "Product price required"],
+        required: [true, "Product quantity is required"],
     },
     price: {
         type: Number,
-        required: [true, "Product price required"],
+        required: [true, "Product price is required"],
+    }, 
+     name: {
+        type: String,
+        require: [true, "Product name required"]
+    },
+    image: {
+        type: String,
+        required: [true, "Product image is required"],
     }
 },
     {
@@ -23,9 +31,16 @@ const ProductSchema = mongoose.Schema({
         toJSON: { virtuals: true }
         , id: false
     });
+//TODO: stockQuantity must be a real number bigger than 0 
 ProductSchema.virtual("category", { //add another field with this name
     ref: "ProductCategoryModel", // Foreign collection model
     localField: "productCategory_id", // Connection local field
+    foreignField: "_id", // Connection remote field
+    justOne: true // Create "author" field as a single object rather than array.
+});
+ProductSchema.virtual("carType", { //add another field with this name
+    ref: "CarTypeModel", // Foreign collection model
+    localField: "carType_id", // Connection local field
     foreignField: "_id", // Connection remote field
     justOne: true // Create "author" field as a single object rather than array.
 });

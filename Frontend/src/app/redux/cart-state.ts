@@ -26,7 +26,7 @@ export interface CartAction {
 }
 
 // Cart Reducer (the new CartState() is for the first time only - we create a new AppState):
-export function cartReducer(
+export function CartReducer(
     currentState: CartState = new CartState(),
     action: CartAction): CartState {
 

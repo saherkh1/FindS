@@ -16,14 +16,19 @@ async function registerFirstStepAsync(user) {
         role: "Client",
         verified: false,
     });
-    return UserModel.findById(newUser.insertedId).exec();
+    const returnedUser = await UserModel.findById(newUser.insertedId).exec();
+    returnedUser.token = cryptoHelper.getNewToken(user);
+    return returnedUser;
 }
 
 async function registerSecondStepAsync(user) {
     user.verified = true;
     const id = user._id;
-    const loggedUser = await UserModel.findByIdAndUpdate(id, user, { returnOriginal: false }).exec().catch(reason => console.log(reason));
+    const loggedUser = await UserModel.findByIdAndUpdate(id, user,
+        { returnOriginal: false }
+    ).exec().catch(reason => console.log(reason));
     loggedUser.token = cryptoHelper.getNewToken(user);
+    console.log("here two")
     return loggedUser;
 }
 

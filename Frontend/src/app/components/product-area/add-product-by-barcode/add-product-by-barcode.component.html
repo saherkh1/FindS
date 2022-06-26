@@ -1,0 +1,29 @@
+<div class="box">
+    <form (submit)="add()" #formInfo="ngForm">
+        <fieldset>
+            <legend>Add Product</legend>
+
+            <label class="form-label mt-4">Barcode:</label>
+            <input type="number" step="1" ng-minlength="13" ng-maxlength="13" class="form-control"
+                placeholder="Enter Barcode" (change)="changeOccurred()" name="barcode" [(ngModel)]="barcode" required
+                #BarcodeInfo="ngModel">
+            <span *ngIf="BarcodeInfo.errors?.required && BarcodeInfo.touched">Missing Barcode </span>
+            <span *ngIf="BarcodeInfo.errors?.minlength && BarcodeInfo.errors?.maxlength && BarcodeInfo.touched">Barcode
+                must be 13 digits </span>
+            <br>
+
+            <label class="form-label mt-4">Quantity:</label>
+            <input type="number" step="1" min="0" max="10000" class="form-control" (change)="changeOccurred()"
+                name="quantity" [(ngModel)]="quantity" required #quantityInfo="ngModel" placeholder="Enter quantity">
+            <span *ngIf="quantityInfo.errors?.required && quantityInfo.touched">Missing quantity. <br></span>
+            <span *ngIf="quantityInfo.errors?.min && quantityInfo.touched">Quantity must be positive. <br></span>
+            <span *ngIf="quantityInfo.errors?.max && quantityInfo.touched">Quantity must be less than 10000.<br> </span>
+
+            <br>
+            <button type="submit" class="btn btn-outline-primary" [disabled]="formInfo.form.invalid">Add</button>
+            <br>
+            <br>
+
+        </fieldset>
+    </form>
+</div>

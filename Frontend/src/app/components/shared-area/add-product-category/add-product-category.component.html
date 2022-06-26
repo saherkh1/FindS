@@ -1,0 +1,15 @@
+<div class="box">
+    <form (submit)="add()" #formInfo="ngForm">
+        <fieldset>
+            <legend>Add Category</legend>
+
+            <label class="form-label mt-4">Name:</label>
+            <input type="text" class="form-control" placeholder="Enter Product Category Name" (change)="changeOccurred()"
+                name="name" [(ngModel)]="product.name" required pattern="^[A-Z].*$" #nameInfo="ngModel">
+            <span *ngIf="nameInfo.errors?.required && nameInfo.touched">Missing name </span>
+            <span *ngIf="nameInfo.errors?.pattern && nameInfo.touched">Name must be capitalized </span>
+
+            <button type="submit" class="btn btn-outline-primary" [disabled]="formInfo.form.invalid">Add</button>
+        </fieldset>
+    </form>
+</div>

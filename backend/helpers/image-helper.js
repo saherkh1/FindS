@@ -7,4 +7,7 @@ function deleteOldImage(oldImageName) {
 function imageExist(path) {
     return fs.existsSync(path);
 }
-module.exports = { deleteOldImage, imageExist }
+module.exports = {
+    deleteOldImage,
+    imageExist
+}

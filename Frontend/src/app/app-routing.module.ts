@@ -1,3 +1,7 @@
+import { ProductUnavailableListComponent } from './components/product-area/product-unavailable-list/product-unavailable-list.component';
+import { AddProductByBarcodeComponent } from './components/product-area/add-product-by-barcode/add-product-by-barcode.component';
+import { ProductAvailabilityCheckComponent } from './components/product-area/product-availability-check/product-availability-check.component';
+import { ManagementComponent } from './components/admin-area/management/management.component';
 import { ValidationComponent } from './components/auth-area/validation/validation.component';
 import { HomeComponent } from './components/home-area/home/home.component';
 import { NgModule } from '@angular/core';
@@ -64,6 +68,18 @@ const routes: Routes = [
     },
 
     {
+        path: "products/barcode/new",
+        canActivate: [AuthAdminGuard],
+        canDeactivate: [IncompleteGuard],
+        component: AddProductByBarcodeComponent
+    },
+    {
+        path: "product/unavailable",
+        canActivate: [AuthAdminGuard],
+        canDeactivate: [IncompleteGuard],
+        component: ProductUnavailableListComponent
+    },
+    {
         path: "products/edit/:id",
         canActivate: [AuthAdminGuard],
         component: UpdateProductComponent
@@ -73,6 +89,18 @@ const routes: Routes = [
         path: "products/details/:id",
         canActivate: [AuthGuard],
         component: ProductDetailsComponent
+    },
+
+    {
+        path: "worker/checkAvailability",
+        canActivate: [AuthGuard],
+        component: ProductAvailabilityCheckComponent
+    },
+
+    {
+        path: "admin/management",
+        canActivate: [AuthAdminGuard],
+        component: ManagementComponent
     },
 
     {

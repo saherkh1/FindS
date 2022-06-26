@@ -2,20 +2,23 @@ const baseUrl = "http://localhost:3001/api/";
 
 export const environment = {
     production: false,
-    cityUrl: baseUrl + "city/",
-    productCategoryUrl: baseUrl + "categories/",
-    productsUrl: baseUrl + "products/",
-    productImagesUrl: baseUrl + "images/",
-    cartUrl: baseUrl + "cart/",
-    cartProductsUrl: baseUrl + "cart/products/",
-    cartTotalUrl: baseUrl + "cart/total/",
-    order: baseUrl + "order/",
-    registerUrl: baseUrl + "auth/register/",
     validationUrl: baseUrl + "auth/register/validation/",
-    loginUrl: baseUrl + "auth/login"
+    productCategoryUrl: baseUrl + "categories/",
+    cartProductsUrl: baseUrl + "cart/products/",
+    registerUrl: baseUrl + "auth/register/",
+    productImagesUrl: baseUrl + "images/",
+    cartTotalUrl: baseUrl + "cart/total/",
+    carModelUrl: baseUrl + "carModel/",
+    productsUrl: baseUrl + "products/",
+    barcodeUrl: baseUrl + "barcode/",
+    carTypeUrl: baseUrl + "carType/",
+    loginUrl: baseUrl + "auth/login",
+    cityUrl: baseUrl + "city/",
+    cartUrl: baseUrl + "cart/",
+    order: baseUrl + "order/",
 }
 
 export const ApplicationConstants = {
     superMarketName: "FindS",
-    
+
 }

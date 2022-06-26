@@ -20,6 +20,15 @@ import { HomeComponent } from './components/home-area/home/home.component';
 import { ValidationComponent } from './components/auth-area/validation/validation.component';
 import { OrderComponent } from './components/order-area/order/order.component';
 import { DialogComponent } from './components/shared-area/dialog/dialog.component';
+import { AddProductCategoryComponent } from './components/shared-area/add-product-category/add-product-category.component';
+import { AddCityComponent } from './components/shared-area/add-city/add-city.component';
+import { AddBarcodeComponent } from './components/shared-area/add-barcode/add-barcode.component';
+import { AddCarModelComponent } from './components/shared-area/add-car-model/add-car-model.component';
+import { AddCarTypeComponent } from './components/shared-area/add-car-type/add-car-type.component';
+import { ManagementComponent } from './components/admin-area/management/management.component';
+import { ProductAvailabilityCheckComponent } from './components/product-area/product-availability-check/product-availability-check.component';
+import { AddProductByBarcodeComponent } from './components/product-area/add-product-by-barcode/add-product-by-barcode.component';
+import { ProductUnavailableListComponent } from './components/product-area/product-unavailable-list/product-unavailable-list.component';
 
 
 @NgModule({
@@ -40,6 +49,15 @@ import { DialogComponent } from './components/shared-area/dialog/dialog.componen
         ValidationComponent,
         OrderComponent,
         DialogComponent,
+        AddProductCategoryComponent,
+        AddCityComponent,
+        AddBarcodeComponent,
+        AddCarModelComponent,
+        AddCarTypeComponent,
+        ManagementComponent,
+        ProductAvailabilityCheckComponent,
+        AddProductByBarcodeComponent,
+        ProductUnavailableListComponent,
 
     ],
     imports: [

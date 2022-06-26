@@ -10,25 +10,25 @@
                 <th scope="col">Delete</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="overflow: auto;">
             <tr *ngFor="let p of cartProducts" class="table-active">
                 <th scope="row">{{p.product.name }}</th>
                 <td>
                     <div class="row">
                         <div class="col">
 
-                            <button (click)="subHandler(p._id)" class="btn btn-outline-info btn-sm">-</button>
+                            <button (click)="subHandler(p._id)" class="btn-outline-info btn-sm">-</button>
                             {{p.quantity}}
-                            <button (click)="addHandler(p._id)" class="btn btn-outline-info btn-sm">+</button>
+                            <button (click)="addHandler(p._id)" class="btn-outline-info btn-sm">+</button>
                         </div>
 
                     </div>
 
 
                 </td>
-                <td>{{p.itemsPrice | currency:"ILS"}}</td>
-                <td><button (click)="deleteHandler(p._id)" class="btn btn-outline-danger btn-sm">X</button></td>
-             
+                <td>{{p.totalPrice | currency:"ILS"}}</td>
+                <td><button (click)="deleteHandler(p._id)" class="btn-outline-danger btn-sm">X</button></td>
+
             </tr>
         </tbody>
     </table>

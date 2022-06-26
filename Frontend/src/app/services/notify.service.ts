@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Notyf } from 'notyf';
 
 @Injectable({
@@ -8,14 +9,18 @@ export class NotifyService {
 
     private notification = new Notyf({ duration: 4000, position: { x: "center", y: "top" } });
 
+    constructor(private router: Router) { }
     public success(message: string): void {
         this.notification.success(message); // Green
     }
 
     public error(err: any): void {
         const message = this.getErrorMessage(err);
-        alert(message)
-        // this.notification.error(message); // Red
+        // alert(message)
+        this.notification.error(message); // Red
+        if (err?.status === 403)
+            this.router.navigateByUrl("/home");
+
     }
 
     private getErrorMessage(err: any): string {

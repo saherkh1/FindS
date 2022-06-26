@@ -1,3 +1,4 @@
+import { CityService } from 'src/app/services/city.service';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CityModel } from './../../../models/city.model';
@@ -17,11 +18,16 @@ import store from 'src/app/redux/store';
 export class ValidationComponent implements OnInit, OnDestroy {
 
     public user = new UserModel();
-    public cites: CityModel[] = [];
+    public cites: CityModel[] = null;
     private flag = true;
 
-    constructor(private cartService: CartService, private http: HttpClient, private myAuthService: AuthService, private notify: NotifyService, private router: Router) { }
-   
+    constructor(private cartService: CartService,
+        private cityService: CityService,
+        private http: HttpClient,
+        private myAuthService: AuthService,
+        private notify: NotifyService,
+        private router: Router) { }
+
     ngOnDestroy(): void {
         this.flag && this.router.navigateByUrl("/logout");
     }
@@ -41,6 +47,7 @@ export class ValidationComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.user = await store.getState().authState.user;
-        this.cites = await this.http.get<CityModel[]>(environment.cityUrl).toPromise();
+        this.cites = await this.cityService.getAllCitiesAsync();
+        //console.log(this.cites)
     }
 }

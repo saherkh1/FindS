@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col">
+        <div [hidden]="!isAuthorized">
+            <div class="row">
+                <a><button [hidden]="!isAuthorized" routerLink="/product/unavailable" type=" button"
+                        class="btn btn-outline-primary btn-sm">
+                        Out of Stock</button></a>
+            </div>
+            <div class="box row">
+                <form #formInfo="ngForm">
+                    <fieldset>
+                        <legend>Check Availability</legend>
+
+                        <label class="form-label mt-4">Car Model: </label>
+                        <select class="form-select" (change)="changeOccurred();carModelChanged()" name="carModel"
+                            [(ngModel)]="carModel_id" required #carModelInfo="ngModel">
+                            <option selected disabled value="null">Select Car Model</option>
+                            <option *ngFor="let c of carModels" value="{{c._id}}">{{c.name}}</option>
+                        </select>
+                        <span *ngIf="carModelInfo.errors?.required && carModelInfo.touched">Missing Car Model.
+                            <br></span>
+
+
+                        <label class="form-label mt-4">Car Type: </label>
+                        <select class="form-select" (change)="changeOccurred();carTypeChanged()" name="carType"
+                            [(ngModel)]="carType_id" required #carTypeInfo="ngModel">
+                            <option selected disabled value="">Select Car Type</option>
+                            <option [hidden]="!IsCarModelSet" *ngFor="let c of carTypes" value="{{c._id}}">{{c.name}}
+                                {{c.year}}
+                            </option>
+                        </select>
+                        <span *ngIf="carTypeInfo.errors?.required && carTypeInfo.touched">Missing Car Type. <br></span>
+
+
+                        <label class="form-label mt-4">Category: </label>
+                        <select class="form-select" (change)="changeOccurred();categoryChanged()" name="category"
+                            [(ngModel)]="category_id" required #categoryInfo="ngModel">
+                            <option selected disabled value="">Select Category</option>
+                            <option [hidden]="!IsCarTypeSet" *ngFor="let c of categories" value="{{c._id}}">{{c.name}}
+                            </option>
+                        </select>
+                        <span *ngIf="categoryInfo.errors?.required && categoryInfo.touched">Missing Category.
+                            <br></span>
+
+                        <label class="form-label mt-4">product: </label>
+                        <select class="form-select" (change)="changeOccurred();productChanged()" name="product"
+                            [(ngModel)]="product_id" required #productInfo="ngModel">
+                            <ng-container hidden="">
+                                <option selected disabled value="">Select Product</option>
+                                <option [hidden]="!IsCategorySet" *ngFor="let c of products" value="{{c._id}}">
+                                    {{c.name}}
+                                </option>
+                            </ng-container>
+                        </select>
+                        <span *ngIf="productInfo.errors?.required && productInfo.touched">Missing product.
+                            <br></span>
+                        <br><br>
+                        <!-- <button type="submit" class="btn btn-outline-primary" [disabled]="formInfo.form.invalid">Add</button> -->
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="col" *ngIf="IsProductSet" [hidden]="!IsProductSet">
+
+            <app-product-card class="box" *ngIf="IsProductSet" [hidden]="!IsProductSet" [product]="product">
+            </app-product-card>
+        </div>
+    </div>

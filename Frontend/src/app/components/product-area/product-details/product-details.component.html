@@ -10,8 +10,7 @@
             <input type="text" readonly="" class="form-control-plaintext"
                 value="Price: {{product.price | currency:'ILS'}}">
 
-            <input type="text" readonly="" class="form-control-plaintext"
-                value="Category: {{product.category?.category}}">
+            <input type="text" readonly="" class="form-control-plaintext" value="Category: {{product.category?.name}}">
             <img [src]="imageAddress">
             <br>
             <button type="button" class="btn btn-outline-secondary" routerLink="/products">Back</button>

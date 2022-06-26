@@ -14,11 +14,11 @@ const server = express();
 
 server.use(sanitize);
 
-server.use("/api/", expressRateLimit({
-    windowMs: 1000, // time window
-    max: 10000, // max requests allowed in that time window from the same user
-    message: "Are you a hacker?" // Error message.
-}));
+// server.use("/api/", expressRateLimit({
+//     windowMs: 1000, // time window
+//     max: 10000, // max requests allowed in that time window from the same user
+//     message: "Are you a hacker?" // Error message.
+// }));
 
 server.use(expressSession({
     name: "captchaCookie", // Cookie name

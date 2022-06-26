@@ -8,6 +8,7 @@ export class CategoryState {
 // Category Action Type: 
 export enum CategoryActionType {
     CategoryDownloaded = "CategoryDownloaded",
+    CategoryAdded = "CategoryAdded"
 }
 
 // Category Action: 
@@ -17,7 +18,7 @@ export interface CategoryAction {
 }
 
 // Category Reducer (the new CategoryState() is for the first time only - we create a new AppState):
-export function categoryReducer(currentState: CategoryState = new CategoryState(), action: CategoryAction): CategoryState {
+export function CategoryReducer(currentState: CategoryState = new CategoryState(), action: CategoryAction): CategoryState {
 
     // Create a copy of the currentState:
     const newState = { ...currentState }; // ... is JS Spread Operator
@@ -27,7 +28,9 @@ export function categoryReducer(currentState: CategoryState = new CategoryState(
         case CategoryActionType.CategoryDownloaded:
             newState.categories = action.payload; // Here action.payload MUST be the downloaded Category array!
             break;
-        
+        case CategoryActionType.CategoryAdded:
+            newState.categories.push(action.payload); // Here action.payload MUST be the added product!
+            break;
     }
 
     // Return the new state: 

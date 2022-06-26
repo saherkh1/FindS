@@ -16,10 +16,12 @@ export class ProductListComponent implements OnInit {
     public isAuthorized: boolean = false;
     constructor(private productsService: ProductsService, private notify: NotifyService) { }
 
+
     async ngOnInit() {
         try {
             this.isAuthorized = store.getState().authState.user?.role === "admin";
-            this.products = await this.productsService.getAllProductsAsync();
+            this.products = await this.productsService.getAllProductsInStockAsync();
+            //this.products = await this.productsService.getAllProductsAsync();
         }
         catch (err: any) {
             this.notify.error(err);

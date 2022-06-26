@@ -4,10 +4,15 @@ const ProductModel = require("../models/product-model");
 const CartProductModel = require("../models/cart-product-model");
 const ProductCategoryModel = require("../models/Product-category-model");
 const ImageHelper = require("../helpers/image-helper");
+const CarModelModel = require("../models/car-model-model");
+const CarTypeModel = require("../models/car-type-model");
+const SoldProductsModel = require("../models/sold-products-model");
+const ReceivedProductsModel = require("../models/received-products-model");
+const BarcodeModel = require("../models/barcode-model");
 
 //product
 function getAllProductsAsync() {
-    return ProductModel.find().populate("category").exec();
+    return ProductModel.find().populate("category").populate("carType").exec();
 }
 
 async function addProductAsync(product) {
@@ -74,6 +79,15 @@ function createOrderAsync(order) {
 function getAllOrdersAsync() {
     return OrderModel.find({ userId }).sort({ initDate: 'desc' }).populate("cart").populate("city").exec();
 }
+function getAllBarcodeAsync() {
+    return BarcodeModel.find().exec();
+}
+function getBarcodeAsync(barcode_name) {
+    return BarcodeModel.find({ barcode_name }).exec();
+}
+function addBarcodeAsync(barcode) {
+    return barcode.save();
+}
 
 function getLatestOrderAsync(userId) {
     return OrderModel.findOne({ userId }).sort({ initDate: 'desc' }).populate("cart").populate("city").exec();
@@ -84,11 +98,100 @@ function getLatestOrderAsync(userId) {
 function getAllCategoriesAsync() {
     return ProductCategoryModel.find().exec();
 }
+
+function addCategoryAsync(category) {
+    return category.save();
+}
+
 // city 
 function getAllCitesAsync() {
     return CityModel.find().exec();
 }
+function addCityAsync(city) {
+    return city.save();
+}
+function getAllProductCategoryAsync() {
+    return ProductCategoryModel.find().exec();
+}
+function addProductCategoryAsync(productCategory) {
+    return productCategory.save();
+}
+function deleteProductCategoryAsync(productCategory_id) {
+    return ProductCategoryModel.findByIdAndDelete(productCategory_id);
+}
+function getAllCarModelAsync() {
+    return CarModelModel.find().exec();
+}
+function addCarModelAsync(carModel) {
+    return carModel.save();
+}
+function deleteCarModelAsync(carModel_id) {
+    return CarModelModel.findByIdAndDelete(carModel_id);
+}
+
+function getAllCarTypeAsync() {
+    return CarTypeModel.find().populate("carModel").exec();
+}
+function addCarTypeAsync(carType) {
+    console.log(carType)
+    return carType.save();
+}
+function deleteCarTypeAsync(carType_id) {
+    return CarTypeModel.findByIdAndDelete(carType_id);
+}
+
+function getAllSoldProductsAsync() {
+    return SoldProductsModel.find().exec();
+}
+function getSoldProductsInRangeAsync(startDate, endDate) {
+    SoldProductsModel.find({ //query today up to tonight
+        created_on: {
+            $gte: startDate,
+            $lt: endDate
+        }
+    })
+    return carType.save();
+}
+function addSoldProductAsync(soldProducts) {
+    return soldProducts.save();
+}
+
+function getAllReceivedProductsAsync() {
+    return ReceivedProductsModel.find().exec();
+}
+function getReceivedProductsInRangeAsync(startDate, endDate) {
+    ReceivedProductsModel.find({ //query today up to tonight
+        created_on: {
+            $gte: startDate,
+            $lt: endDate
+        }
+    })
+    return carType.save();
+}
+
+function addReceivedProductAsync(receivedProduct) {
+    return receivedProduct.save();
+}
+function checkBarcodeExistAsync(product_id) {
+    const barCodes = BarcodeModel.find({ product_id }).exec();
+    return barCodes.length >= 0;
+}
+function checkCarModelExistAsync(name) {
+    return (CarModelModel.find({ name }).exec()).length >= 0;
+}
+function checkCategoryExistAsync(name) {
+    return (ProductCategoryModel.find({ name }).exec()).length >= 0;
+}
+function checkCityExistAsync(name) {
+    return (CityModel.find({ name }).exec()).length >= 0;
+}
+function checkCarTypeExistAsync(name, year) {
+    return (CarTypeModel.find({ name, year }).exec()).length >= 0;
+}
 module.exports = {
+    checkCarTypeExistAsync,
+    checkCityExistAsync,
+    checkCategoryExistAsync,
     getAllProductsAsync,
     addProductAsync,
     deleteProductAsync,
@@ -99,7 +202,31 @@ module.exports = {
     GetAllCartProductsAsync,
     createOrderAsync,
     getAllCitesAsync,
+    addCityAsync,
     getAllCategoriesAsync,
+    addCategoryAsync,
     getLatestOrderAsync,
     getAllOrdersAsync,
+    getAllBarcodeAsync,
+    getBarcodeAsync,
+    addBarcodeAsync,
+    checkBarcodeExistAsync,
+    getAllProductCategoryAsync,
+    addProductCategoryAsync,
+    deleteProductCategoryAsync,
+
+    getAllCarModelAsync,
+    addCarModelAsync,
+    deleteCarModelAsync,
+    checkCarModelExistAsync,
+    getAllCarTypeAsync,
+    addCarTypeAsync,
+    deleteCarTypeAsync,
+    getAllSoldProductsAsync,
+    getSoldProductsInRangeAsync,
+    addSoldProductAsync,
+    getAllReceivedProductsAsync,
+    getReceivedProductsInRangeAsync,
+    addReceivedProductAsync,
+
 }

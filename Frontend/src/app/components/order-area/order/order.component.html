@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>{{p.itemsPrice | currency:"ILS"}}</td>
+                        <td>{{p.totalPrice | currency:"ILS"}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -43,7 +43,7 @@
                     <select class="form-select" (change)="changeOccurred()" name="city" [(ngModel)]="order.cityId"
                         required #cityInfo="ngModel">
                         <option selected disabled value="">Select City</option>
-                        <option *ngFor="let c of cities" value="{{c._id}}">{{c.city}}</option>
+                        <option *ngFor="let c of cities" value="{{c._id}}">{{c.name}}</option>
                     </select>
                     <br>
                     <label class="form-label mt-4">Street:</label>

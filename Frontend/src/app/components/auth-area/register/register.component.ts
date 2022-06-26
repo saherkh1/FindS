@@ -1,3 +1,4 @@
+import { LoginComponent } from './../login/login.component';
 import { FormControl, Validators, FormGroup, ValidatorFn, ValidationErrors, FormBuilder, AbstractControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -17,7 +18,7 @@ export class RegisterComponent {
     public emailControl = new FormControl(null, [Validators.required, Validators.email]);
     public idNumberControl = new FormControl(null, [Validators.required, Validators.pattern("^[0-9]{9}$")]);
     public passwordControl = new FormControl(null, [Validators.required, Validators.pattern("^.{4,16}$")]);
-    public confirmPassControl = new FormControl(null, [Validators.required]);
+    public confirmPassControl = new FormControl(null, [Validators.required, Validators.pattern("^.{4,16}$")]);
 
 
     ConfirmedValidator(controlName: string, matchingControlName: string) {
@@ -52,15 +53,25 @@ export class RegisterComponent {
 
     public async register() {
         try {
+
+            console.log("regestring")
+            console.log(this.passwordControl.value)
+            console.log(this.confirmPassControl.value)
+            if (this.passwordControl.value == null || this.passwordControl.value.toString().length < 4)
+                throw ("Fill in a stronger Passwords!");
+            if (this.passwordControl.value == null ||
+                this.confirmPassControl.value == null ||
+                this.passwordControl.value !== this.confirmPassControl.value)
+                throw ("Passwords Doesn't Match!");// + (this.passwordControl.value != null).toString() + (this.confirmPassControl.value).toString() + (this.passwordControl.value !== this.confirmPassControl.value).toString());
             this.user.email = this.emailControl.value;
             this.user.idNumber = this.idNumberControl.value;
             this.user.password = this.passwordControl.value;
-            // await this.myAuthService.register(this.user);
-            // this.notify.success("Fill in your information!");
-            // this.myRouter.navigateByUrl("/validation");
+            await this.myAuthService.register(this.user);
+            this.notify.success("Fill in your information!");
+            this.myRouter.navigateByUrl("/validation");
         }
         catch (err: any) {
-            this.notify.error(err.message);
+            this.notify.error(err);
         }
     }
 }

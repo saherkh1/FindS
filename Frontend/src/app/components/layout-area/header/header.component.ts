@@ -33,12 +33,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     public getSuggestion(text: string) {
         searchService.setSearchText(text);
-        console.log("the header says " + text);
+        // console.log("the header says " + text);
     }
 
     ngOnDestroy(): void {
         this.unsubscribeMe();
     }
-
-
 }

@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const CarTypeSchema = mongoose.Schema({
     carModel_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Product Category required"],
+        required: [true, "Car Model is required"],
     },
     name: {
-        type: string,
-        required: [true, "Car Type name required"],
+        type: String,
+        required: [true, "Car Type name is required"],
     },
     year: {
         type: Number,
@@ -19,7 +19,7 @@ const CarTypeSchema = mongoose.Schema({
         toJSON: { virtuals: true }
         , id: false
     });
-ProductSchema.virtual("carModel", { //add another field with this name
+CarTypeSchema.virtual("carModel", { //add another field with this name
     ref: "CarModelModel", // Foreign collection model
     localField: "carModel_id", // Connection local field
     foreignField: "_id", // Connection remote field
