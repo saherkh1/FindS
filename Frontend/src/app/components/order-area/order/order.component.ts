@@ -44,9 +44,9 @@ export class OrderComponent implements OnInit {
         try {
             //create service that creates order
             // await this.orderService.createOrder(this.order);
-            this.order.cartId = this.cart._id;
+            this.order.cart_id = this.cart._id;
             // this.order.user = store.getState().authState.user;
-            this.order.userId = store.getState().authState.user._id;
+            this.order.user_id = store.getState().authState.user._id;
             this.order.totalPrice = this.totalPrice;
             if (this.order.totalPrice === 0) throw "Cant place an empty order"
             let date = this.order.shippingDate;

@@ -18,7 +18,7 @@ const router = express.Router();
 router.get("/products", async (request, response) => {
     try {
         const products = await shopLogic.getAllProductsAsync();
-        console.log(products)
+        // console.log(products)
         response.json(products);
     }
     catch (err) {
@@ -28,7 +28,7 @@ router.get("/products", async (request, response) => {
 //add product
 router.post("/products", handleImage, async (request, response) => {
     try {
-        console.log(request.body);
+        // console.log(request.body);
         const product = new ProductModel(request.body);
 
         const returnedProduct = await shopLogic.addProductAsync(product);
@@ -53,13 +53,13 @@ router.delete("/products/:ProductId", async (request, response) => {
 //Update a Product
 router.put("/products/:productId", handleImage, async (request, response) => {
     try {
-        console.log("products put: started ")
+        // console.log("products put: started ")
         // Model:
         const productId = request.params.productId;
         request.body._id = productId;
         const product = new ProductModel(request.body);
 
-        console.log("products put: object created  ")
+        // console.log("products put: object created  ")
 
         // Validate:
         // const errors = product.validatePut();
@@ -129,9 +129,9 @@ router.get("/cart/:userId", async (request, response) => {
 // add product to cart
 router.put("/cart", async (request, response) => {
     try {
-        console.log(request.body);
+        // console.log(request.body);
         const cartProduct = new CartProductModel(request.body);
-        console.log(cartProduct);
+        // console.log(cartProduct);
 
         const responseProduct = await shopLogic.addToCartAsync(cartProduct);
         response.json(responseProduct);
@@ -281,7 +281,6 @@ router.get("/barcode/:barcode_name", async (request, response) => {
 //adds the Bar codes
 router.post("/barcode/", async (request, response) => {
     try {
-        console.log(request.body)
         var barcode = new BarcodeModel(request.body)
 
         if (await shopLogic.checkBarcodeExistAsync(barcode.product_id))
@@ -362,7 +361,6 @@ router.post("/carType", async (request, response) => {
             errorsHelper.alreadyExistError(response, "Car Type Already Exist");
 
         const responseCarType = await shopLogic.addCarTypeAsync(carType);
-        console.log("fdsgrfgasfdg");
         response.json(responseCarType);
     }
     catch (err) {
@@ -456,5 +454,7 @@ router.post("/receivedProducts", async (request, response) => {
         response.status(500).send(err.message);
     }
 });
+
+
 
 module.exports = router;

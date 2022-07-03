@@ -18,8 +18,15 @@
             <span *ngIf="quantityInfo.errors?.required && quantityInfo.touched">Missing quantity. <br></span>
             <span *ngIf="quantityInfo.errors?.min && quantityInfo.touched">Quantity must be positive. <br></span>
             <span *ngIf="quantityInfo.errors?.max && quantityInfo.touched">Quantity must be less than 10000.<br> </span>
-
             <br>
+            <label class="form-label mt-4">Total Buying Price:</label>
+            <input type="number" step="1" min="0" class="form-control" (change)="changeOccurred()" name="totalPrice"
+                [(ngModel)]="totalPrice" required #totalPriceInfo="ngModel" placeholder="Enter Total Price">
+            <span *ngIf="totalPriceInfo.errors?.required && totalPriceInfo.touched">Missing TotalPrice. <br></span>
+            <span *ngIf="totalPriceInfo.errors?.min && totalPriceInfo.touched">TotalPrice must be positive. <br></span>
+
+
+
             <button type="submit" class="btn btn-outline-primary" [disabled]="formInfo.form.invalid">Add</button>
             <br>
             <br>

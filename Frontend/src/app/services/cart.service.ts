@@ -21,7 +21,10 @@ export class CartService {
 
 
     public async getCartAsync(userId: String): Promise<CartModel> {
+        userId = store.getState().authState.user._id;
         const cart = await this.http.get<CartModel[]>(environment.cartUrl + userId).toPromise();
+        console.log(cart);
+
         store.dispatch({ type: CartActionType.CartDownloaded, payload: cart });
         return store.getState().cartState.cart;
     }
@@ -36,14 +39,15 @@ export class CartService {
 
     public async addCartProductAsync(product: ProductModel,): Promise<CartProductModel[]> {
         const cartProducts = store.getState().cartState.cartProducts;
+        const userId = store.getState().authState.user._id;
         let cartProduct = cartProducts.find(p => p.product_id === product._id);
         //true: create new product
-
         const isNewProduct = (!cartProduct);
         if (isNewProduct) {//create new cartProduct 
             cartProduct = new CartProductModel();
             cartProduct.quantity = 1;
-            cartProduct.cart_id = store.getState().cartState.cart._id;
+            cartProduct.cart_id = (await this.getCartAsync(userId))._id;
+            console.log(product)
             cartProduct.product_id = product._id;
             cartProduct.totalPrice = product.price;
         } else {

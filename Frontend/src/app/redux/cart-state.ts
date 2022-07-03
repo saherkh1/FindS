@@ -1,4 +1,4 @@
-import { CartProductModel } from "../models/cart-product.model";
+import { CartProductModel } from 'src/app/models/cart-product.model';
 import { CartModel } from "../models/cart.model";
 
 // Cart App State: 
@@ -37,6 +37,8 @@ export function CartReducer(
     switch (action.type) {
         case CartActionType.CartDownloaded:
             newState.cart = action.payload; // Here action.payload MUST be the downloaded Cart!
+            if (action.payload.cartProducts.length <= 0)
+                newState.cartProducts = [];
             break;
         case CartActionType.CartProductsDownloaded:
             newState.cartProducts = action.payload; // Here action.payload MUST be the downloaded Cart Products array!

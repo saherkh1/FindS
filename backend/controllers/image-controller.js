@@ -4,7 +4,16 @@ const locations = require("../helpers/locations");
 const { imageExist } = require("../helpers/image-helper");
 
 const router = express.Router();
+router.post("/add/products/list", async (request, response) => {
+    try {
+        // console.log(request.body);
 
+        response.json(request.body);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
 //Get an image 
 router.get("/:imageName", (request, response) => {
     try {

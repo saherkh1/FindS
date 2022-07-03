@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = mongoose.Schema({
-    cartId: {
+    cart_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "Cart ID required"],
     },
-    userId: {
+    user_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "user ID required"],
     },
@@ -14,7 +14,7 @@ const OrderSchema = mongoose.Schema({
         required: [true, "price required"],
         min: [0, "price can't be negative"],
     },
-    cityId: {
+    city_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "City ID required"],
     },
@@ -35,7 +35,7 @@ OrderSchema.virtual("city", {
 });
 OrderSchema.virtual("cart", {
     ref: "CartModel",
-    localField: "cartId",
+    localField: "cart_id",
     foreignField: "_id",
     justOne: true
 });

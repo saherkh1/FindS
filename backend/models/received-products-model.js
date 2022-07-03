@@ -18,7 +18,7 @@ const ReceivedProductsSchema = mongoose.Schema({
         type: Number,
         required: [true, "quantity required"],
     },
-    priceEach:{
+    totalBuyingPrice: {
         type: Number,
         required: [true, "Price required"]
     }

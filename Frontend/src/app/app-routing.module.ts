@@ -64,7 +64,8 @@ const routes: Routes = [
         path: "products/new",
         canActivate: [AuthAdminGuard],
         canDeactivate: [IncompleteGuard],
-        component: AddProductComponent
+        component: AddProductComponent,
+
     },
 
     {

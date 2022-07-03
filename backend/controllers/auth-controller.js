@@ -48,7 +48,7 @@ router.post("/register/validation", async (request, response) => {
         // const errors = await user.validateSync(Object.keys(request.body));
         // if (errors) return response.status(400).send(errors.message);
         const registeredUser = await authLogic.registerSecondStepAsync(request.body);
-        console.log("im here")
+        // console.log("im here")
         response.status(201).json(registeredUser);
     }
     catch (err) {

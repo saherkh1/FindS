@@ -28,7 +28,7 @@ async function registerSecondStepAsync(user) {
         { returnOriginal: false }
     ).exec().catch(reason => console.log(reason));
     loggedUser.token = cryptoHelper.getNewToken(user);
-    console.log("here two")
+    // console.log("here two")
     return loggedUser;
 }
 
