@@ -39,16 +39,22 @@ export class ProductsService {
     }
 
     public async addProductAsync(product: ProductModel): Promise<ProductModel> {
+
         const formData = new FormData();
         formData.append("name", product.name);
         formData.append("price", product.price.toString());
-        formData.append("productCategory_id", product.productCategory_id.toString());
+        formData.append("productCategory_id", product.productCategory_id);
         formData.append("productCategory", JSON.stringify(product.category));
-        formData.append("stockQuantity", product.stockQuantity.toString());
-        formData.append("carType_id", product.carType_id.toString());
+        formData.append("carType_id", product.carType_id);
         formData.append("carType", JSON.stringify(product.carType));
         formData.append("image", product.image.item(0));
         const addedProduct = await this.http.post<ProductModel>(environment.productsUrl, formData).toPromise();
+        // if (addedProduct.stockQuantity > 0) {
+        //     const formDataReceived = new FormData();
+        //     formData.append("product_id", addedProduct._id);
+        //     formData.append("quantity", addedProduct.stockQuantity.toString());
+        //     formData.append("BuyingPrice", addedProduct._id);
+        // }
         store.dispatch({ type: ProductsActionType.ProductAdded, payload: addedProduct });
         return addedProduct;
     }
@@ -68,7 +74,15 @@ export class ProductsService {
         return updatedProduct;
     }
 
-    public async updateProductQuantityAsync(product: ProductModel): Promise<ProductModel> {
+    public async updateProductQuantityAsync(product: ProductModel, quantityAdded: number, totalPrice: number): Promise<ProductModel> {
+        //create an object to add the received product
+        const formData = new FormData();
+        formData.append("product_id", product._id);
+        formData.append("quantity", quantityAdded.toString());
+        formData.append("totalBuyingPrice", totalPrice.toString());
+        //add the received product
+        await this.http.post(environment.receivedProducts, formData).toPromise();
+        //update the product
         const updatedProduct = await this.http.put<ProductModel>(environment.productsUrl + product._id, product).toPromise();
         store.dispatch({ type: ProductsActionType.ProductUpdated, payload: updatedProduct });
         return updatedProduct;

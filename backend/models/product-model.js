@@ -12,12 +12,13 @@ const ProductSchema = mongoose.Schema({
     stockQuantity: {
         type: Number,
         required: [true, "Product quantity is required"],
+        default: 0
     },
     price: {
         type: Number,
         required: [true, "Product price is required"],
-    }, 
-     name: {
+    },
+    name: {
         type: String,
         require: [true, "Product name required"]
     },

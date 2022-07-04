@@ -8,7 +8,8 @@ const BarcodeSchema = mongoose.Schema({
     name: {
         type: String,
         required: [true, "Barcode name required"],
-    }
+    },
+
 },
     {
         versionKey: false,

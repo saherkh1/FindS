@@ -56,17 +56,19 @@ export class CartComponent implements OnDestroy, OnInit {
         }
     }
     async ngOnInit() {
-        // get the id from the store!!
-        this.totalPrice = 0;
-        const userId = store.getState().authState.user._id;
-        this.cart = await this.cartService.getCartAsync(userId);
-        this.cartProducts = await this.cartService.getCartProductsAsync(this.cart._id);
-        this.totalPrice = this.cartProducts.reduce((sum, c) => sum + (c.product.price * c.quantity), 0)
-        store.subscribe(() => {
-            this.cart = store.getState().cartState.cart;
-            this.cartProducts = store.getState().cartState.cartProducts;
+        if (store.getState().authState.user?.role != "admin") {
+            // get the id from the store!!
+            this.totalPrice = 0;
+            const userId = store.getState().authState.user._id;
+            this.cart = await this.cartService.getCartAsync(userId);
+            this.cartProducts = await this.cartService.getCartProductsAsync(this.cart._id);
             this.totalPrice = this.cartProducts.reduce((sum, c) => sum + (c.product.price * c.quantity), 0)
-        })
+            store.subscribe(() => {
+                this.cart = store.getState().cartState.cart;
+                this.cartProducts = store.getState().cartState.cartProducts;
+                this.totalPrice = this.cartProducts.reduce((sum, c) => sum + (c.product.price * c.quantity), 0)
+            })
+        }
     }
     ngOnDestroy(): void {
         clearTimeout(this.timerKiller);

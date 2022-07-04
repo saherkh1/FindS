@@ -40,7 +40,7 @@
                     <legend>order</legend>
 
                     <label class="form-label mt-4">City:</label>
-                    <select class="form-select" (change)="changeOccurred()" name="city" [(ngModel)]="order.cityId"
+                    <select class="form-select" (change)="changeOccurred()" name="city" [(ngModel)]="order.city_id"
                         required #cityInfo="ngModel">
                         <option selected disabled value="">Select City</option>
                         <option *ngFor="let c of cities" value="{{c._id}}">{{c.name}}</option>

@@ -3,6 +3,7 @@ const baseUrl = "http://localhost:3001/api/";
 export const environment = {
     production: false,
     validationUrl: baseUrl + "auth/register/validation/",
+    receivedProducts: baseUrl + "receivedProducts/",
     productCategoryUrl: baseUrl + "categories/",
     cartProductsUrl: baseUrl + "cart/products/",
     registerUrl: baseUrl + "auth/register/",

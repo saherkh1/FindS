@@ -14,6 +14,7 @@ export class CarTypeService {
 
     public async getAllCarTypesAsync(): Promise<CarTypeModel[]> {
         if (store.getState().carTypeState.CarTypes.length === 0) {
+            console.log("environment.carTypeUrl", environment.carTypeUrl)
             const carTypes = await this.http.get<CarTypeModel[]>(environment.carTypeUrl).toPromise();
             store.dispatch({ type: CarTypeActionType.CarTypeDownloaded, payload: carTypes });
         }

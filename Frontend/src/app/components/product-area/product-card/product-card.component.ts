@@ -33,7 +33,7 @@ export class ProductCardComponent implements OnInit {
 
     public async addToCart() {
         try {
-            //console.log(this.product);
+            console.log(this.product);
 
             await this.cartService.addCartProductAsync(this.product);
 
@@ -56,9 +56,10 @@ export class ProductCardComponent implements OnInit {
         if (this.product) {
             this.imageAddress = environment.productImagesUrl + this.product.image;
             this.isAuthorized = store.getState().authState.user?.role === "admin";
+            // console.log(this.product);
             if (this.product.carType_id)
-                this.product.carType =
-                    await this.carTypeService.getCarTypeByIdAsync(this.product.carType_id);
+            this.product.carType =
+            await this.carTypeService.getCarTypeByIdAsync(this.product.carType_id);
             if (this.product.carType?.carModel_id)
                 this.product.carType.carModel =
                     await this.carModelService.getCarModelAsync(this.product.carType.carModel_id);

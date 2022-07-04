@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public unsubscribeMe: Unsubscribe;
     public supermarketName: string;
     public searchText = '';
-
+    public isAuthorized: boolean = false;
     public text = `somedummy text here`;
 
     constructor() { }
@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         store.subscribe(() => {
             this.user = store.getState().authState.user;
             this.role = this.user?.role
+            this.isAuthorized = this.role === "admin";
         });
     }
 

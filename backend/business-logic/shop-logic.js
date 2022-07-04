@@ -18,6 +18,16 @@ function getAllProductsAsync() {
 async function addProductAsync(product) {
     return product.save();
 }
+
+async function updateProductQuantity(ProductId, soldQuantity) {
+    const product = await getProductByIdAsync(ProductId);
+    product.stockQuantity -= soldQuantity;
+    if (product.stockQuantity < 0) throw ("No sufficient quantity for the product: " + product.name)
+    // console.log("updateProductQuantity: first step done");
+}
+async function getProductByIdAsync(ProductId) {
+    return ProductModel.find(ProductId).populate("category").populate("carType").exec();
+}
 function deleteProductAsync(ProductId) {
     return ProductModel.findByIdAndDelete(ProductId);
 }
@@ -34,7 +44,7 @@ async function updateProductAsync(newProduct) {
 
 //cart
 async function getCartAsync(userId) {
-    let cart = await CartModel.findOne({ userId }, {}, { sort: { createDate: -1 } });
+    const cart = await CartModel.findOne({ userId }, {}, { sort: { createDate: -1 } }).populate("cartProducts").exec();
     if (cart === null) cart = createNewCart(userId);
     else return cart;
     return cart.save();
@@ -67,16 +77,35 @@ function createNewCart(userId) {
     return cart.save();
 }
 
-//order
-function createOrderAsync(order) {
-    createNewCart(order.userId)
-    order.orderDate = new Date();
-    return order.save();
-
-
+async function addSoldProduct(user_id, product_id, quantity, totalPrice) {
+    const soldProduct = new SoldProductsModel();
+    soldProduct.user_id = user_id;
+    soldProduct.product_id = product_id;
+    soldProduct.quantity = quantity;
+    soldProduct.totalPrice = totalPrice;
+    if (!soldProduct.soledDate) soldProduct.soledDate = Date.now;
+    console.log("createOrderAsync: Third step done");
+    return soldProduct.save
 }
 
-function getAllOrdersAsync() {
+//order
+async function createOrderAsync(order) {
+    //get the cart 
+    const cart = await getCartAsync(order.user_id);
+    //for each cart product update the product quantity to be the old q - new q 
+    //add product to sold products 
+    cart.cartProducts.forEach(cartProduct => {
+        // console.log("createOrderAsync: second step done");
+        updateProductQuantity(cartProduct.product_id, cartProduct.quantity);
+        addSoldProduct(order.user_id, cartProduct.product_id, cartProduct.quantity, cartProduct.totalPrice)
+        // console.log("createOrderAsync: fourth step done");
+    });
+    createNewCart(order.user_id)
+    order.orderDate = new Date();
+    return order.save();
+}
+
+function getAllOrdersAsync(userId) {
     return OrderModel.find({ userId }).sort({ initDate: 'desc' }).populate("cart").populate("city").exec();
 }
 function getAllBarcodeAsync() {
@@ -133,7 +162,7 @@ function getAllCarTypeAsync() {
     return CarTypeModel.find().populate("carModel").exec();
 }
 function addCarTypeAsync(carType) {
-    console.log(carType)
+    // console.log(carType)
     return carType.save();
 }
 function deleteCarTypeAsync(carType_id) {

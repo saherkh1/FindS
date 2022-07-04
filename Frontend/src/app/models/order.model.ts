@@ -4,9 +4,9 @@ import { UserModel } from "./user.model";
 
 export class OrderModel {
     public _id: string;
-    public cartId: string;
-    public userId: string;
-    public cityId: string;
+    public cart_id: string;
+    public user_id: string;
+    public city_id: string;
     public city: CityModel;
     public totalPrice: Number;
     public street: String;
