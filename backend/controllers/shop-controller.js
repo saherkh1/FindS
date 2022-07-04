@@ -457,4 +457,15 @@ router.post("/receivedProducts", async (request, response) => {
     }
 });
 
+
+router.purge("/AddingDataFunction", async (request, response) => {
+    try {
+        console.log("hello from here");
+
+        response.json(220);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
 module.exports = router;

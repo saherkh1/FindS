@@ -40,7 +40,8 @@ async function loginAsync(credentials) {
         loggedInUser.token = cryptoHelper.getNewToken(loggedInUser);
         return loggedInUser;
     } catch (err) {
-        console.error(err)
+        
+        console.error("Error: " + err);
     }
 }
 module.exports = {

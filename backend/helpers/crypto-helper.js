@@ -11,7 +11,6 @@ function hash(plainText) {
 
 function getNewToken(user) {
     const payload = { user };
-    console.log(payload)
     return jwt.sign(payload, global.config.jwtKey, { expiresIn: "30m" });
 }
 
